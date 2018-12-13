@@ -1,12 +1,21 @@
 #!/usr/bin/python -O
 
-# Import the libraries we need for this script
+"""
+Summary:
+Point script to files, it will generate hashes
+It will return the hashes to other scripts / tools
+If ran directly, it will also create .md5 files for what was checked
+
+# original author: https://github.com/srbrettle
+Author: grimmvenom <grimmvenom@gmail.com>
+"""
+# Import libraries
 import hashlib
 import os
 import sys
 import argparse
 
-# original author: https://github.com/srbrettle
+
 
 
 def get_arguments():
