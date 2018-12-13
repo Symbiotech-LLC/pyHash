@@ -11,6 +11,7 @@ Author: grimmvenom <grimmvenom@gmail.com>
 
 # find /path/to/dir/ -type f -exec md5sum {} + | awk '{print $1}' | sort | md5sum
 """
+
 # Import libraries
 import hashlib
 import os
