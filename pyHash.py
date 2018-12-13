@@ -19,13 +19,12 @@ import os
 import sys
 import argparse
 import re
-import pkg_resources
 
 
 def get_arguments():
 	parser = argparse.ArgumentParser()
 	parser.add_argument('-f', "-file", action='append', dest='files', required=True,
-	                    help='-f <filepath.txt> \n.txt file to check hash of')
+						help='-f <filepath.txt> \n.txt file to check hash of')
 	arguments = parser.parse_args()
 	
 	files = list()
@@ -98,7 +97,7 @@ class checksum:
 						the_file.write(md5_hash)
 	
 	def dirhash(self, dirname, hashfunc='md5', excluded_files=None, ignore_hidden=False,
-	            followlinks=False, excluded_extensions=None):
+		followlinks=False, excluded_extensions=None):
 		hash_func = self.HASH_FUNCS.get(hashfunc)
 		if not hash_func:
 			raise NotImplementedError('{} not implemented.'.format(hashfunc))
@@ -117,7 +116,7 @@ class checksum:
 				if not re.search(r'/\.', root):
 					hashvalues.extend(
 						[self._filehash(os.path.join(root, f),
-						                hash_func) for f in files if not
+										hash_func) for f in files if not
 						 f.startswith('.') and not re.search(r'/\.', f)
 						 and f not in excluded_files
 						 and f.split('.')[-1:][0] not in excluded_extensions
@@ -150,14 +149,6 @@ class checksum:
 		for hashvalue in sorted(hashlist):
 			hasher.update(hashvalue.encode('utf-8'))
 		return hasher.hexdigest()
-
-
-# def generate_dir_md5(self, directory, verbose=0):
-# 	data = dict()
-# 	# md5_hash = checksumdir.dirhash(directory, 'md5')
-# 	print(directory + " : " + str(md5_hash))
-# 	data = {directory: {'md5': str(md5_hash)}}
-# 	return data
 
 
 if __name__ == "__main__":
