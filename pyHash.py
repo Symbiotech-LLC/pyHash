@@ -16,11 +16,10 @@ import sys
 import argparse
 
 
-
-
 def get_arguments():
 	parser = argparse.ArgumentParser()
-	parser.add_argument('-f', "-file", action='append', dest='file', required=True, help='-f <filepath.txt> \n.txt file to check hash of')
+	parser.add_argument('-f', "-file", action='append', dest='file', required=True,
+	                    help='-f <filepath.txt> \n.txt file to check hash of')
 	arguments = parser.parse_args()
 	
 	files = list()
@@ -36,43 +35,31 @@ def get_arguments():
 class pyHash:
 	def __init__(self, arguments):
 		self.arguments = arguments
-		
+	
 	def generate_hashes(self):
 		data = dict()
 		for file in self.arguments.file:
+			data[file] = dict()
 			with open(file, 'rb') as f:
 				content = f.read()
-				# SHA-1
-				sha1 = hashlib.sha1(content).hexdigest()
-				# SHA-224
-				sha224 = hashlib.sha224(content).hexdigest()
-				# SHA-256
-				sha256 = hashlib.sha256(content).hexdigest()
-				# SHA-384
-				sha384 = hashlib.sha384(content).hexdigest()
-				# SHA-512
-				sha512 = hashlib.sha512(content).hexdigest()
-				# SHA-3-224
-				sha3_224 = hashlib.sha3_224(content).hexdigest()
-				# SHA-3-256
-				sha3_256 = hashlib.sha3_256(content).hexdigest()
-				# SHA-3-348
-				sha3_384 = hashlib.sha3_384(content).hexdigest()
-				# SHA-3-512
-				sha3_512 = hashlib.sha3_512(content).hexdigest()
+				# data[file]['sha1'] = str(hashlib.sha1(content).hexdigest())  # SHA-1
+				# data[file]['sha224'] = str(hashlib.sha224(content).hexdigest())  # SHA-224
+				data[file]['sha256'] = str(hashlib.sha256(content).hexdigest())  # SHA-256
+				# data[file]['sha384'] = str(hashlib.sha384(content).hexdigest())  # SHA-384
+				# data[file]['sha512'] = str(hashlib.sha512(content).hexdigest())  # SHA-512
+				# data[file]['sha3_224'] = str(hashlib.sha3_224(content).hexdigest()) # SHA-3-224
+				data[file]['sha3_256'] = str(hashlib.sha3_256(content).hexdigest())  # SHA-3-256
+				# data[file]['sha3_384'] = str(hashlib.sha3_384(content).hexdigest()) # SHA-3-384
+				# data[file]['sha3_512'] = str(hashlib.sha3_512(content).hexdigest()) # SHA-3-512
 				
 				# MD5
 				md5 = hashlib.md5()
 				for i in range(0, len(content), 8192):
 					md5.update(content[i:i + 8192])
-				md5 = md5.hexdigest()
-			
-			data[file] = {'sha1': sha1, 'sha224': sha224, 'sha256': sha256, 'sha384': sha384,
-				'sha512': sha512, 'sha3_224': sha3_224, 'sha3_256': sha3_256,
-				'sha3_384': sha3_384, 'sha3_512': sha3_512, 'md5': md5}
-			
+				data[file]['md5'] = str(md5.hexdigest())
+		
 		return data
-
+	
 	def generate_md5_file(self, data):
 		for path, hashes in data.items():
 			md5_hash = str(hashes['md5'])
