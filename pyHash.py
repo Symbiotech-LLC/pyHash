@@ -23,8 +23,7 @@ import re
 
 def get_arguments():
 	parser = argparse.ArgumentParser()
-	parser.add_argument('-f', "-file", action='append', dest='files', required=True,
-						help='-f <filepath.txt> \n.txt file to check hash of')
+	parser.add_argument('-f', "-file", action='append', dest='files', required=True, help='-f <filepath.txt> \n.txt file to check hash of')
 	arguments = parser.parse_args()
 	
 	files = list()
