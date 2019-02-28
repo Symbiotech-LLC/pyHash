@@ -9,4 +9,4 @@ https://www.patreon.com/symbiotech_LLC
 
 # pyHash Commands:
 ### List all available options (help)
-python pyHash.py -f <filepath>
+python pyHash.py -f **filepath**
